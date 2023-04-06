@@ -1,6 +1,12 @@
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
+var currentDayDisplay = $('#currentDay')
+var scheduleArea = $('#schedule-area')
+var liElement = $('li')
+var buttons = $('.btn')
+    localArray = []
+
 $(function () {
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
@@ -9,6 +15,21 @@ $(function () {
   // time-block containing the button that was clicked? How might the id be
   // useful when saving the description in local storage?
   //
+
+  liElement.on("click",function(event){
+    var eventTarget = $(event.target)
+    if(eventTarget.is(buttons)){
+      var innerText = this.getElementsByTagName('textarea')[0].value
+      console.log(innerText + " " + this.id) //gotta get info from the button?
+      var addObj = {idLocation: this.id, storedText: innerText}
+      localArray.push(addObj)
+      console.log(localArray)
+    }
+    return
+  })
+
+
+
   // TODO: Add code to apply the past, present, or future class to each time
   // block by comparing the id to the current hour. HINTS: How can the id
   // attribute of each time-block be used to conditionally add or remove the
@@ -16,9 +37,36 @@ $(function () {
   // current hour in 24-hour time? 
   // isBefore() is built into dayjs
   //
+
+  for(i=9; i<=17; i++) {
+    var idVar = "#hour-" + (i)
+    var currentHourId = $(idVar)
+    console.log(dayjs().format('H'))
+    console.log(idVar)
+    if(dayjs().format('H') == i) {
+      currentHourId.addClass('present')
+    }
+    if(dayjs().format('H')<i) {
+      currentHourId.addClass('past')
+    }
+    if(dayjs().format('H')>i){
+      currentHourId.addClass('future')
+    }
+  }
+
+
+
+
   // TODO: Add code to get any user input that was saved in localStorage and set
   // the values of the corresponding textarea elements. HINT: How can the id
   // attribute of each time-block be used to do this?
   //
+  if(localStorage.getItem)
+
+
+
+
+
   // TODO: Add code to display the current date in the header of the page.
+  currentDayDisplay.text(dayjs().format('MMM DD, YYYY'))
 });
