@@ -20,10 +20,8 @@ $(function () {
     var eventTarget = $(event.target)
     if(eventTarget.is(buttons)){
       var innerText = this.getElementsByTagName('textarea')[0].value
-      console.log(innerText + " " + this.id) //gotta get info from the button?
-      var addObj = {idLocation: this.id, storedText: innerText}
-      localArray.push(addObj)
-      console.log(localArray)
+      var idVar = "#" + this.id
+      localStorage.setItem(idVar, innerText)
     }
     return
   })
@@ -41,8 +39,6 @@ $(function () {
   for(i=9; i<=17; i++) {
     var idVar = "#hour-" + (i)
     var currentHourId = $(idVar)
-    console.log(dayjs().format('H'))
-    console.log(idVar)
     if(dayjs().format('H') == i) {
       currentHourId.addClass('present')
     }
@@ -61,8 +57,15 @@ $(function () {
   // the values of the corresponding textarea elements. HINT: How can the id
   // attribute of each time-block be used to do this?
   //
-  if(localStorage.getItem)
-
+  for(i=0; i<=scheduleArea.length; i++) {
+    var idVar = "#hour-" + (i+9)
+    var currentHourId = $(idVar)
+    if(localStorage.getItem(idVar) != null) {
+      console.log(localStorage.getItem(idVar))
+      currentHourId.textContent = localStorage.getItem(idVar)
+      
+    }
+  }
 
 
 
