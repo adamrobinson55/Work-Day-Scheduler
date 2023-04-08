@@ -5,6 +5,7 @@ var currentDayDisplay = $('#currentDay')
 var scheduleArea = $('#schedule-area')
 var liElement = $('li')
 var buttons = $('.btn')
+var textAreas = document.getElementsByTagName('textarea')
     localArray = []
 
 $(function () {
@@ -57,13 +58,10 @@ $(function () {
   // the values of the corresponding textarea elements. HINT: How can the id
   // attribute of each time-block be used to do this?
   //
-  for(i=0; i<=scheduleArea.length; i++) {
+  for(i=0; i<=20; i++) {
     var idVar = "#hour-" + (i+9)
-    var currentHourId = $(idVar)
     if(localStorage.getItem(idVar) != null) {
-      console.log(localStorage.getItem(idVar))
-      currentHourId.textContent = localStorage.getItem(idVar)
-      
+      textAreas[i].value = localStorage.getItem(idVar)
     }
   }
 
